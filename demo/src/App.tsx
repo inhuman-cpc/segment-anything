@@ -134,7 +134,7 @@ const App = () => {
     }
   };
 
-  return <Stage basePath={BASE_PATH} />;
+  return <Stage />;
 };
 
 export default App;

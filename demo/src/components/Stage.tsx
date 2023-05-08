@@ -10,7 +10,7 @@ import Tool from "./Tool";
 import { modelInputProps } from "./helpers/Interfaces";
 import AppContext from "./hooks/createContext";
 
-const Stage = ({basePath: string}) => {
+const Stage = () => {
   const {
     clicks: [, setClicks],
     image: [image],
@@ -40,8 +40,8 @@ const Stage = ({basePath: string}) => {
   const list = ['dogs', 'girl-1', 'girl-2', 'girl-3'].map(name => {
     return (
       <li key={name} className="p-[10px]">
-        <a href={`${basePath}/?${name}`}>
-          <img src={`/assets/data/${name}.jpg`} className="w-[64px]" />
+        <a href={`/?${name}`}>
+          <img src={`https://static-1251297012.file.myqcloud.com/ai-test/data/${name}.jpg`} className="w-[64px]" />
         </a>
       </li>
     )
