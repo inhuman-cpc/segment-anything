@@ -62,7 +62,7 @@ const App = () => {
     initModel();
 
     // Load the image
-    const url = new URL(IMAGE_PATH, location.origin);
+    const url = new URL(IMAGE_PATH);
     loadImage(url);
 
     // Load the Segment Anything pre-computed embedding
@@ -134,7 +134,7 @@ const App = () => {
     }
   };
 
-  return <Stage />;
+  return <Stage basePath={BASE_PATH} />;
 };
 
 export default App;
