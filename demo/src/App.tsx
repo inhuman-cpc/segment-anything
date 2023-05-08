@@ -17,17 +17,19 @@ const ort = require("onnxruntime-web");
 /* @ts-ignore */
 import npyjs from "npyjs";
 
+const BASE_PATH = 'https://static-1251297012.file.myqcloud.com/ai-test'
+
 function getParams(imgName: string) {
   return {
-    IMAGE_PATH: `/assets/data/${imgName}.jpg`,
-    IMAGE_EMBEDDING: `/assets/data/${imgName}_embedding.npy`
+    IMAGE_PATH: `${BASE_PATH}/data/${imgName}.jpg`,
+    IMAGE_EMBEDDING: `${BASE_PATH}/data/${imgName}_embedding.npy`
   }
 }
 
 // Define image, embedding and model paths
 // const IMAGE_PATH = "/assets/data/dogs.jpg";
 // const IMAGE_EMBEDDING = "/assets/data/dogs_embedding.npy";
-const MODEL_DIR = "/model/sam_onnx_quantized_example.onnx";
+const MODEL_DIR = `${BASE_PATH}/sam_onnx_quantized_example.onnx`;
 
 const App = () => {
   const {
