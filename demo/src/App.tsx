@@ -17,9 +17,16 @@ const ort = require("onnxruntime-web");
 /* @ts-ignore */
 import npyjs from "npyjs";
 
+function getParams(imgName: string) {
+  return {
+    IMAGE_PATH: `/assets/data/${imgName}.jpg`,
+    IMAGE_EMBEDDING: `/assets/data/${imgName}_embedding.npy`
+  }
+}
+
 // Define image, embedding and model paths
-const IMAGE_PATH = "/assets/data/dogs.jpg";
-const IMAGE_EMBEDDING = "/assets/data/dogs_embedding.npy";
+// const IMAGE_PATH = "/assets/data/dogs.jpg";
+// const IMAGE_EMBEDDING = "/assets/data/dogs_embedding.npy";
 const MODEL_DIR = "/model/sam_onnx_quantized_example.onnx";
 
 const App = () => {
@@ -28,6 +35,7 @@ const App = () => {
     image: [, setImage],
     maskImg: [, setMaskImg],
   } = useContext(AppContext)!;
+  const { IMAGE_PATH, IMAGE_EMBEDDING } = getParams(location.search.split('?')[1] || 'dogs')
   const [model, setModel] = useState<InferenceSession | null>(null); // ONNX model
   const [tensor, setTensor] = useState<Tensor | null>(null); // Image embedding tensor
 
