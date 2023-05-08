@@ -39,16 +39,16 @@ const Stage = () => {
   const flexCenterClasses = "flex items-center justify-center";
   const list = ['dogs', 'girl-1', 'girl-2', 'girl-3'].map(name => {
     return (
-      <li key={name}>
+      <li key={name} className="p-[10px]">
         <a href={`/?${name}`}>
-          <img src={`/assets/data/${name}.jpg`} className="w-6" />
+          <img src={`/assets/data/${name}.jpg`} className="w-[64px]" />
         </a>
       </li>
     )
   })
   return (
     <div className={`${flexCenterClasses} w-full h-full`}>
-      <div className="flex absolute top-0 left-0">
+      <div className="flex absolute top-[20%] left-[16px]">
         <ul>{list}</ul>
       </div>
       <div className={`${flexCenterClasses} relative w-[90%] h-[90%]`}>
