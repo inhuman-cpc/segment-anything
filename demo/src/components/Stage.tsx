@@ -10,7 +10,7 @@ import Tool from "./Tool";
 import { modelInputProps } from "./helpers/Interfaces";
 import AppContext from "./hooks/createContext";
 
-const Stage = ({basePath}) => {
+const Stage = ({basePath: string}) => {
   const {
     clicks: [, setClicks],
     image: [image],
