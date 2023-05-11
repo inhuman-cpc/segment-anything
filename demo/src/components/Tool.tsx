@@ -11,6 +11,7 @@ import * as _ from 'underscore'
 
 const Tool = ({ handleMouseClick }: ToolProps) => {
   const {
+    clicks: [, setClicks],
     image: [image],
     maskImg: [maskImg, setMaskImg]
   } = useContext(AppContext)!
@@ -50,7 +51,11 @@ const Tool = ({ handleMouseClick }: ToolProps) => {
       {image && (
         <img
           onClick={handleMouseClick}
-          onMouseOut={() => _.defer(() => setMaskImg(null))}
+          onMouseOut={() => _.defer(() => {
+            setClicks(null)
+            setMaskImg(null)
+          })}
+          onContextMenu={handleMouseClick}
           src={image.src}
           className={`${
             shouldFitToWidth ? 'w-full' : 'h-full'

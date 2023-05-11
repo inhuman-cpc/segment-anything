@@ -4,7 +4,7 @@
 // This source code is licensed under the license found in the
 // LICENSE file in the root directory of this source tree.
 
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import * as _ from 'underscore'
 import Tool from './Tool'
 import { modelInputProps } from './helpers/Interfaces'
@@ -12,7 +12,7 @@ import AppContext from './hooks/createContext'
 
 const Stage = ({ isReady }: {isReady: boolean}) => {
   const {
-    clicks: [, setClicks],
+    clicks: [clicks, setClicks],
     image: [image]
   } = useContext(AppContext)!
 
@@ -32,8 +32,11 @@ const Stage = ({ isReady }: {isReady: boolean}) => {
     x *= imageScale
     y *= imageScale
     // Right click generates negative points
-    const click = getClick(x, y, e.which === 3 ? 0 : 1)
-    console.log(`Click: ${JSON.stringify(click)}`)
+    const click = getClick(x, y, e.button === 0 ? 1 : 0)
+    console.log('Current clicks:')
+    console.log(clicks)
+    console.log('Current click:')
+    console.log(click)
     if (click) setClicks((clicks) => clicks ? [...clicks, click] : [click])
   }, 500)
 
@@ -48,12 +51,6 @@ const Stage = ({ isReady }: {isReady: boolean}) => {
     )
   })
 
-  useEffect(() => {
-    document.addEventListener('contextmenu', (e) => {
-      e.preventDefault()
-      handleMouseClick(e)
-    })
-  }, [])
   return (
     <div className={`${flexCenterClasses} w-full h-full`}>
       <div className="flex absolute top-[20%] left-[16px]">
