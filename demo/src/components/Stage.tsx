@@ -10,21 +10,20 @@ import Tool from "./Tool";
 import { modelInputProps } from "./helpers/Interfaces";
 import AppContext from "./hooks/createContext";
 
-const Stage = () => {
+const Stage = ({isReady}: {isReady: boolean}) => {
   const {
     clicks: [, setClicks],
     image: [image],
   } = useContext(AppContext)!;
 
-  const getClick = (x: number, y: number): modelInputProps => {
-    const clickType = 1;
+  const getClick = (x: number, y: number, clickType: number): modelInputProps => {
     return { x, y, clickType };
   };
 
   // Get mouse position and scale the (x, y) coordinates back to the natural
   // scale of the image. Update the state of clicks with setClicks to trigger
   // the ONNX model to run and generate a new mask via a useEffect in App.tsx
-  const handleMouseMove = _.throttle((e: any) => {
+  const handleMouseClick = _.debounce((e: any) => {
     let el = e.nativeEvent.target;
     const rect = el.getBoundingClientRect();
     let x = e.clientX - rect.left;
@@ -32,9 +31,10 @@ const Stage = () => {
     const imageScale = image ? image.width / el.offsetWidth : 1;
     x *= imageScale;
     y *= imageScale;
-    const click = getClick(x, y);
-    if (click) setClicks([click]);
-  }, 15);
+    // Right click generates negative points
+    const click = getClick(x, y, e.which === 3 ? 0 : 1);
+    if (click) setClicks(clicks => [...clicks, click]);
+  }, 500);
 
   const flexCenterClasses = "flex items-center justify-center";
   const list = ['dogs', 'girl-1', 'girl-2', 'girl-3'].map(name => {
@@ -52,7 +52,7 @@ const Stage = () => {
         <ul>{list}</ul>
       </div>
       <div className={`${flexCenterClasses} relative w-[90%] h-[90%]`}>
-        <Tool handleMouseMove={handleMouseMove} />
+        {isReady ? <Tool handleMouseClick={handleMouseClick} /> : 'Loading model and embedding ...'}
       </div>
     </div>
   );
