@@ -69,6 +69,8 @@ const App = () => {
     Promise.resolve(loadNpyTensor(IMAGE_EMBEDDING, 'float32')).then(
       (embedding) => setTensor(embedding)
     )
+
+    window.addEventListener('contextmenu', () => false)
   }, [])
 
   const loadImage = async (url: URL) => {
