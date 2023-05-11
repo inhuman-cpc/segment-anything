@@ -10,7 +10,7 @@ import { modelInputProps } from "../helpers/Interfaces";
 interface contextProps {
   clicks: [
     clicks: modelInputProps[] | null,
-    setClicks: (e: modelInputProps[] | null) => void
+    setClicks: (e: modelInputProps[] | null | ((clicks: modelInputProps[]) => modelInputProps[])) => void
   ];
   image: [
     image: HTMLImageElement | null,
