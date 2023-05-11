@@ -7,10 +7,12 @@
 import { createContext } from 'react'
 import { modelInputProps } from '../helpers/Interfaces'
 
+type setStateFunc = (clicks: modelInputProps[] | null) => modelInputProps[] | null
+
 interface contextProps {
   clicks: [
     clicks: modelInputProps[] | null,
-    setClicks: (e: modelInputProps[] | null | ((clicks: modelInputProps[]| null) => modelInputProps[])) => void
+    setClicks: (e: modelInputProps[] | null | setStateFunc) => void
   ];
   image: [
     image: HTMLImageElement | null,
