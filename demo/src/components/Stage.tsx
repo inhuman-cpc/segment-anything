@@ -4,7 +4,7 @@
 // This source code is licensed under the license found in the
 // LICENSE file in the root directory of this source tree.
 
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import * as _ from 'underscore'
 import Tool from './Tool'
 import { modelInputProps } from './helpers/Interfaces'
@@ -47,6 +47,13 @@ const Stage = ({ isReady }: {isReady: boolean}) => {
       </li>
     )
   })
+
+  useEffect(() => {
+    document.addEventListener('contextmenu', (e) => {
+      e.preventDefault()
+      handleMouseClick(e)
+    })
+  }, [])
   return (
     <div className={`${flexCenterClasses} w-full h-full`}>
       <div className="flex absolute top-[20%] left-[16px]">
