@@ -70,7 +70,7 @@ const App = () => {
       (embedding) => setTensor(embedding)
     )
 
-    window.addEventListener('contextmenu', () => false)
+    document.addEventListener('contextmenu', (e) => e.preventDefault())
   }, [])
 
   const loadImage = async (url: URL) => {

@@ -33,6 +33,7 @@ const Stage = ({ isReady }: {isReady: boolean}) => {
     y *= imageScale
     // Right click generates negative points
     const click = getClick(x, y, e.which === 3 ? 0 : 1)
+    console.log(`Click: ${JSON.stringify(click)}`)
     if (click) setClicks((clicks) => clicks ? [...clicks, click] : [click])
   }, 500)
 
