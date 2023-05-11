@@ -33,7 +33,7 @@ const Stage = ({isReady}: {isReady: boolean}) => {
     y *= imageScale;
     // Right click generates negative points
     const click = getClick(x, y, e.which === 3 ? 0 : 1);
-    if (click) setClicks(clicks => [...clicks, click]);
+    if (click) setClicks((clicks: modelInputProps[]) => [...clicks, click]);
   }, 500);
 
   const flexCenterClasses = "flex items-center justify-center";

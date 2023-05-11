@@ -134,7 +134,7 @@ const App = () => {
     }
   };
 
-  return <Stage isReady={!!modle} />;
+  return <Stage isReady={!!model} />;
 };
 
 export default App;
