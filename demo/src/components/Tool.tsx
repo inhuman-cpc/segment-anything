@@ -4,45 +4,45 @@
 // This source code is licensed under the license found in the
 // LICENSE file in the root directory of this source tree.
 
-import React, { useContext, useEffect, useState } from "react";
-import AppContext from "./hooks/createContext";
-import { ToolProps } from "./helpers/Interfaces";
-import * as _ from "underscore";
+import React, { useContext, useEffect, useState } from 'react'
+import AppContext from './hooks/createContext'
+import { ToolProps } from './helpers/Interfaces'
+import * as _ from 'underscore'
 
 const Tool = ({ handleMouseClick }: ToolProps) => {
   const {
     image: [image],
-    maskImg: [maskImg, setMaskImg],
-  } = useContext(AppContext)!;
+    maskImg: [maskImg, setMaskImg]
+  } = useContext(AppContext)!
 
   // Determine if we should shrink or grow the images to match the
   // width or the height of the page and setup a ResizeObserver to
   // monitor changes in the size of the page
-  const [shouldFitToWidth, setShouldFitToWidth] = useState(true);
-  const bodyEl = document.body;
+  const [shouldFitToWidth, setShouldFitToWidth] = useState(true)
+  const bodyEl = document.body
   const fitToPage = () => {
-    if (!image) return;
-    const imageAspectRatio = image.width / image.height;
-    const screenAspectRatio = window.innerWidth / window.innerHeight;
-    setShouldFitToWidth(imageAspectRatio > screenAspectRatio);
-  };
+    if (!image) return
+    const imageAspectRatio = image.width / image.height
+    const screenAspectRatio = window.innerWidth / window.innerHeight
+    setShouldFitToWidth(imageAspectRatio > screenAspectRatio)
+  }
   const resizeObserver = new ResizeObserver((entries) => {
     for (const entry of entries) {
       if (entry.target === bodyEl) {
-        fitToPage();
+        fitToPage()
       }
     }
-  });
+  })
   useEffect(() => {
-    fitToPage();
-    resizeObserver.observe(bodyEl);
+    fitToPage()
+    resizeObserver.observe(bodyEl)
     return () => {
-      resizeObserver.unobserve(bodyEl);
-    };
-  }, [image]);
+      resizeObserver.unobserve(bodyEl)
+    }
+  }, [image])
 
-  const imageClasses = "";
-  const maskImageClasses = `absolute opacity-40 pointer-events-none`;
+  const imageClasses = ''
+  const maskImageClasses = 'absolute opacity-40 pointer-events-none'
 
   // Render the image and the predicted mask image on top
   return (
@@ -53,7 +53,7 @@ const Tool = ({ handleMouseClick }: ToolProps) => {
           onMouseOut={() => _.defer(() => setMaskImg(null))}
           src={image.src}
           className={`${
-            shouldFitToWidth ? "w-full" : "h-full"
+            shouldFitToWidth ? 'w-full' : 'h-full'
           } ${imageClasses}`}
         ></img>
       )}
@@ -61,12 +61,12 @@ const Tool = ({ handleMouseClick }: ToolProps) => {
         <img
           src={maskImg.src}
           className={`${
-            shouldFitToWidth ? "w-full" : "h-full"
+            shouldFitToWidth ? 'w-full' : 'h-full'
           } ${maskImageClasses}`}
         ></img>
       )}
     </>
-  );
-};
+  )
+}
 
-export default Tool;
+export default Tool
